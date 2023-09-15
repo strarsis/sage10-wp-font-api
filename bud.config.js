@@ -18,9 +18,9 @@ export default async (app) => {
     .entry('editor', ['@scripts/editor', '@styles/editor'])
     .assets(['images'])
 
-  /**
-   * Font files (to be referenced in `theme.json`)
-   */
+    /**
+     * Font files (to be referenced in `theme.json`)
+     */
     .assets(['@fonts/Roboto-Regular-subset.woff2']);
 
 
@@ -51,28 +51,28 @@ export default async (app) => {
    * @see {@link https://bud.js.org/extensions/sage/theme.json}
    * @see {@link https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json}
    */
-  app.wpjson	
-	.set('typography.fontFamilies', [
-	  {
-		"fontFamily": "Roboto, sans-serif",
-		"slug":       "primary",
-		"name":       "Roboto",
-		"fontFace": [
-		  {
-			"fontFamily": "Roboto",
-			"fontWeight": "400",
-			"src": [
-			  "@fonts/Roboto-Regular-subset.woff2",
-			],
-		  },
-		],
-	  },
-	])
-	
+  app.wpjson
+    .set('typography.fontFamilies', [
+      {
+        "fontFamily": "Roboto, sans-serif",
+        "slug": "primary",
+        "name": "Roboto",
+        "fontFace": [
+          {
+            "fontFamily": "Roboto",
+            "fontWeight": "400",
+            "src": [
+              "@fonts/Roboto-Regular-subset.woff2",
+            ],
+          },
+        ],
+      },
+    ])
+
     .enable();
-	
-	
-	app
+
+
+  app
     .after(async () => {
       const manifest = await app.fs.read(`public/manifest.json`);
       const data = app.container(await app.fs.read(`theme.json`));
