@@ -16,7 +16,13 @@ export default async (app) => {
   app
     .entry('app', ['@scripts/app', '@styles/app'])
     .entry('editor', ['@scripts/editor', '@styles/editor'])
-    .assets(['images']);
+    .assets(['images'])
+
+  /**
+   * Font files (to be referenced in `theme.json`)
+   */
+    .assets(['@fonts/Roboto-Regular-subset.woff2']);
+
 
   /**
    * Set public path
@@ -45,22 +51,37 @@ export default async (app) => {
    * @see {@link https://bud.js.org/extensions/sage/theme.json}
    * @see {@link https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json}
    */
-  app.wpjson
-    .set('settings.color.custom', false)
-    .set('settings.color.customDuotone', false)
-    .set('settings.color.customGradient', false)
-    .set('settings.color.defaultDuotone', false)
-    .set('settings.color.defaultGradients', false)
-    .set('settings.color.defaultPalette', false)
-    .set('settings.color.duotone', [])
-    .set('settings.custom.spacing', {})
-    .set('settings.custom.typography.font-size', {})
-    .set('settings.custom.typography.line-height', {})
-    .set('settings.spacing.padding', true)
-    .set('settings.spacing.units', ['px', '%', 'em', 'rem', 'vw', 'vh'])
-    .set('settings.typography.customFontSize', false)
-    .useTailwindColors()
-    .useTailwindFontFamily()
-    .useTailwindFontSize()
+  app.wpjson	
+	.set('typography.fontFamilies', [
+	  {
+		"fontFamily": "Roboto, sans-serif",
+		"slug":       "primary",
+		"name":       "Roboto",
+		"fontFace": [
+		  {
+			"fontFamily": "Roboto",
+			"fontWeight": "400",
+			"src": [
+			  "@fonts/Roboto-Regular-subset.woff2",
+			],
+		  },
+		],
+	  },
+	])
+	
     .enable();
+	
+	
+	app
+    .after(async () => {
+      const manifest = await app.fs.read(`public/manifest.json`);
+      const data = app.container(await app.fs.read(`theme.json`));
+
+      data
+        .set(`settings.typography.fontFamilies.[0].fontFace.[0].src`, [
+          `file:./public/${manifest[`fonts/Roboto-Regular-subset.woff2`]}`,
+        ]);
+
+      await app.fs.write(`theme.json`, data.all());
+    });
 };
