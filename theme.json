@@ -30,33 +30,20 @@
       "dropCap": false,
       "fontFamilies": [
         {
+          "fontFamily": "Roboto, sans-serif",
+          "slug": "primary",
+          "name": "Roboto",
           "fontFace": [
             {
+              "fontFamily": "Roboto",
+              "fontWeight": "400",
               "src": [
-                "file:./public/undefined"
+                "file:./public/Roboto-Regular-subset.637166.woff2"
               ]
             }
           ]
         }
       ]
     }
-  },
-  "typography": {
-    "fontFamilies": [
-      {
-        "fontFamily": "Roboto, sans-serif",
-        "slug": "primary",
-        "name": "Roboto",
-        "fontFace": [
-          {
-            "fontFamily": "Roboto",
-            "fontWeight": "400",
-            "src": [
-              "@fonts/Roboto-Regular-subset.woff2"
-            ]
-          }
-        ]
-      }
-    ]
   }
 }

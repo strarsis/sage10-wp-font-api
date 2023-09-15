@@ -21,7 +21,7 @@ export default async (app) => {
     /**
      * Font files (to be referenced in `theme.json`)
      */
-    .assets(['@fonts/Roboto-Regular-subset.woff2']);
+    .assets([app.path('@fonts/Roboto-Regular-subset.woff2')]);
 
 
   /**
@@ -52,22 +52,25 @@ export default async (app) => {
    * @see {@link https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json}
    */
   app.wpjson
-    .set('typography.fontFamilies', [
-      {
-        "fontFamily": "Roboto, sans-serif",
-        "slug": "primary",
-        "name": "Roboto",
-        "fontFace": [
+    .settings(theme =>
+      theme
+        .set('typography.fontFamilies', [
           {
-            "fontFamily": "Roboto",
-            "fontWeight": "400",
-            "src": [
-              "@fonts/Roboto-Regular-subset.woff2",
+            "fontFamily": "Roboto, sans-serif",
+            "slug": "primary",
+            "name": "Roboto",
+            "fontFace": [
+              {
+                "fontFamily": "Roboto",
+                "fontWeight": "400",
+                "src": [
+                  "@fonts/Roboto-Regular-subset.woff2",
+                ],
+              },
             ],
           },
-        ],
-      },
-    ])
+        ])
+    )
 
     .enable();
 
@@ -79,7 +82,7 @@ export default async (app) => {
 
       data
         .set(`settings.typography.fontFamilies.[0].fontFace.[0].src`, [
-          `file:./public/${manifest[`fonts/Roboto-Regular-subset.woff2`]}`,
+          `file:./public/${manifest[`Roboto-Regular-subset.woff2`]}`,
         ]);
 
       await app.fs.write(`theme.json`, data.all());
